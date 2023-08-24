@@ -26,16 +26,23 @@ absolutely play a role in cancer predisposition).
 The [dbSNP](https://www.ncbi.nlm.nih.gov/snp/) database is perhaps the most
 widely-used population frequency database.
 
+*EY notes: my understanding of this is that SNP's are less useful to analyze
+because they are more common - more common than the occurence of cancer. Hence,
+the argument is that because they are more common, they can't be the direct
+cause of cancer. But this doesn't exclude them from making the owner more
+susceptible. Oncogenesis is the process under which normal cells turn into tumor
+or cancer cells.*
+
 Determining which of the hundreds of thousands of possible SNVs are important in
 a particular disease is done by statistical association or through applying
 biological knowledge. Genome-wide association studies (**GWAS**) collect data
 from thousands of patient samples with the same disease and statistically
-compare their SNVs to those in a normal population. GWAS studies work well for
-common diseases that are well-defined and reliably diagnosed. This is especially
+compare their SNVs to those in a normal population. **GWAS studies work well for
+common diseases that are well-defined and reliably diagnosed**. This is especially
 true if the number of disease-causing variants is small. However, most diseases
-have many genetic variants that influence the disease. Importantly, GWAS studies
+have many genetic variants that influence the disease. Importantly, **GWAS studies
 only find variants that are linked to disease more closely than expected by
-chance. Very often these variants only indicate an interesting genomic location
+chance**. Very often these variants only indicate an interesting genomic location
 and do not themselves result in disease.
 
 One downside of GWAS studies is that they require a relatively large number of
@@ -44,7 +51,15 @@ cancer, GWAS studies are not as practical due to low sample count. Thus,
 researchers apply biological knowledge _a priori_ to improve the odds of finding
 relevant SNVs. Commonly scientists focus their efforts on SNVs that fall within
 exons of genes that are known to be associated with cancer or that are predicted to
-alter the protein product. Databases such
+alter the protein product. 
+
+*EY notes: Scientists focus on the genes that are associated or predicted to 
+alter the protein product to narrow down the SNV's and improve statisticaly
+power of their GWAS studies. The exon region is focused on because only the exon
+regions are transcribed into mRNA, and the intron regions (the parts that are
+removed), don't play a role in causing cancer.*
+
+Databases such
 as [COSMIC](https://cancer.sanger.ac.uk/cosmic) track variants in cancer genomes
 to help identify genes and genomic locations that are commonly mutated and are,
 therefore, more likely to be relevant to disease.

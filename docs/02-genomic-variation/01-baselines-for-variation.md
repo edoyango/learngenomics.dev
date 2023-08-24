@@ -61,8 +61,15 @@ Consortium's website.
 ## The Analysis of Tumors vs. Germline Mutations
 
 Having a matched pair of tumor and germline data is especially valuable in
-variant detection because germline data acts as a precise control. The analyst
-uses the pairing to sort out common but irrelevant single nucleotide variations
+variant detection because germline data acts as a precise control. 
+
+*EY notes: germline DNA is DNA that is passed on to offspring. This DNA is
+different from DNA that form most of the body. The latter is known as "somatic".
+Mutations from somatic DNA are not passed to offspring, whereas mutations from
+germline DNA are. Hence, making germline useful as a baseline for analysing
+genetic information from tumours.*
+
+The analyst uses the pairing to sort out common but irrelevant single nucleotide variations
 (SNVs) found in the normal germline tissue from the new cancer driving mutations
 in the tumor.
 

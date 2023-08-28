@@ -1,8 +1,8 @@
 # Variant Equivalence
 
 A common problem in calling genomic variation is the multitude of ways a
-variation can be annotated. Two different variant callers might describe the
-same genomic alternations in two different ways. For example, consider the
+variation can be annotated. <mark>Two different variant callers might describe the
+same genomic alternations in two different ways.</mark> For example, consider the
 variation that occurs in the figure below: either notation captures the event
 correctly, but one considers there to be an SNV then insertion while the other
 considers the event a deletion and subsequent insertion. These differences make

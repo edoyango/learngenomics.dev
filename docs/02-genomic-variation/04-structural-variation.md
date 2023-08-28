@@ -10,21 +10,23 @@ Living cells are remarkably tough in that they can tolerate large scale changes
 Structural variations take many forms—sequences may be deleted, copied, moved,
 inverted or exchanged between chromosomes. These changes vary greatly as some
 SVs are complex rearrangements involving multiple chromosomes while other SVs
-may only disrupt one part of a single chromosome. SVs are distinguished from
-indels by their large size, although there is no standard accepted threshold.
+may only disrupt one part of a single chromosome. <mark>SVs are distinguished from
+indels by their large size, although there is no standard accepted threshold.</mark>
 While SVs are detected computationally, some SVs are large enough to be seen in
 an ordinary microscope.
 
 After an SV event the original genomic sequence is interrupted by another out
 of place sequence, creating a **breakpoint**. Detecting breakpoints in SVs
-requires specialized computational methods. One strategy is to pull all of the
+requires specialized computational methods. <mark>One strategy is to pull all of the
 reads that are high quality but do not map to the reference genome as expected,
 split them in two and remap the pieces. If the read overlaps the breakpoint, the
 two pieces both map but to different locations. This is called a **split
 read**. If multiple unique split reads map to same locations, on both strands,
 there may be enough evidence to call breakpoints. Discordant paired end reads,
 where one read maps to one chromosome and the second to another chromosome, also
-lend support to breakpoints.
+lend support to breakpoints.</mark>
+
+*EY Notes: what a breakpoint is, isn't clear to me.*
 
 ### Gene Fusions
 
@@ -53,18 +55,18 @@ distinct functions of the BCR and ABL1 genes in normal cells:
   known at the time of writing. What is important is in this case is that the
   cell will produce BCR at different levels than ABL1 depending on the scenario.
 
-In some leukemias, the front half of the BCR gene is fused to the back half of
+In some leukemias, the <mark>front half of the BCR gene is fused to the back half of
 the ABL1 gene. When the cell machinery attempts to produce the BCR protein, a
-hybrid protein containing the tyrosine kinase domain is produced instead. This
+hybrid protein containing the tyrosine kinase domain is produced instead.</mark> This
 can lead to many additional copies of the problematic domain floating around
 than the cell intends, which causes the cell to divide much more than it intends
 and can ultimately be a driver for cancer.
 
 Detecting fusions like BCR-ABL1 is an important part of cancer diagnosis and
-influences the choice of treatments a patient receives. Like breakpoint
+influences the choice of treatments a patient receives. <mark>Like breakpoint
 discovery, many fusion detection methods rely on finding split reads and
 discordant read pairs that map to two genes called **spanning reads**. These
 reads are rare in genomic sequences, so fusions are generally detected using
-RNA-seq. Fusion detection methods may also enhance their sensitivity by testing
+RNA-seq.</mark> Fusion detection methods may also enhance their sensitivity by testing
 for known fusion sequences or by testing against a database of potential fusions
 based on known exons.

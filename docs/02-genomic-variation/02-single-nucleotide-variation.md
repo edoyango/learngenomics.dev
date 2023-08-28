@@ -5,9 +5,9 @@ track: Genomic Variation
 
 [Single Nucleotide Variants (SNVs) and Single Nucleotide Polymorphisms
 (SNPs)](https://en.wikipedia.org/wiki/Single-nucleotide_polymorphism) are the
-smallest unit of variation in the genome. Here, just one nucleotide, or base, is
+smallest unit of variation in the genome. Here, <mark>just one nucleotide, or base, is
 substituted at a single position in the genome (such as changing a 'C' to an 'A'
-on chromosome 5, position 1,485,234). The term "**SNV"** is used broadly to
+on chromosome 5, position 1,485,234)</mark>. The term "**SNV"** is used broadly to
 describe an event where a single nucleotide substitution, insertion or deletion
 occurs. Single nucleotide polymorphisms, or **SNPs**, are a subset of SNVs where
 the change is found in some non-trivial percentage of a population (e.g. \> 1%,
@@ -35,19 +35,19 @@ or cancer cells.*
 
 Determining which of the hundreds of thousands of possible SNVs are important in
 a particular disease is done by statistical association or through applying
-biological knowledge. Genome-wide association studies (**GWAS**) collect data
+biological knowledge. <mark>Genome-wide association studies (**GWAS**) collect data
 from thousands of patient samples with the same disease and statistically
 compare their SNVs to those in a normal population. **GWAS studies work well for
-common diseases that are well-defined and reliably diagnosed**. This is especially
+common diseases that are well-defined and reliably diagnosed**.</mark> This is especially
 true if the number of disease-causing variants is small. However, most diseases
-have many genetic variants that influence the disease. Importantly, **GWAS studies
+have many genetic variants that influence the disease. Importantly, <mark>**GWAS studies
 only find variants that are linked to disease more closely than expected by
-chance**. Very often these variants only indicate an interesting genomic location
+chance**.</mark> Very often these variants only indicate an interesting genomic location
 and do not themselves result in disease.
 
 One downside of GWAS studies is that they require a relatively large number of
-samples to gain enough statistical power. In rare diseases like pediatric
-cancer, GWAS studies are not as practical due to low sample count. Thus,
+samples to gain enough statistical power. <mark>In rare diseases like pediatric
+cancer, GWAS studies are not as practical due to low sample count.</mark> Thus,
 researchers apply biological knowledge _a priori_ to improve the odds of finding
 relevant SNVs. Commonly scientists focus their efforts on SNVs that fall within
 exons of genes that are known to be associated with cancer or that are predicted to

@@ -7,18 +7,54 @@ good, so we recommend you take a look before starting this section. As a
 reminder, this guide focuses on Illumina-produced FASTQ files, though the
 concepts are generally applicable to most sequencers today.
 
-Technically speaking, FASTQ files are not a direct product of sequencers as many
+:::info
+
+EY Notes: It's still useful to read the wiki page as it goes into conventions
+used by companies/institutes in using the format fields, which could be useful
+when interpreting these files when encountered in the wild.
+
+The main piece of information from wikipedia:
+
+## Format
+
+A FASTQ file has four line-separated fields per sequence:
+
+* Field 1 begins with a '@' character and is followed by a sequence identifier and an optional description (like a FASTA title line).
+* Field 2 is the raw sequence letters.
+* Field 3 begins with a '+' character and is optionally followed by the same sequence identifier (and any description) again.
+* Field 4 encodes the quality values for the sequence in Field 2, and must contain the same number of symbols as letters in the sequence.
+
+A FASTQ file containing a single sequence might look like this:
+
+```
+@SEQ_ID
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+```
+
+The byte representing quality runs from 0x21 (lowest quality; '!' in ASCII) to 0x7e (highest quality; '~' in ASCII). Here are the quality value characters in left-to-right increasing order of quality (ASCII):
+
+```
+!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+```
+
+The original Sanger FASTQ files split long sequences and quality strings over multiple lines, as is typically done for FASTA files. Accounting for this makes parsing more complicated due to the choice of "@" and "+" as markers (as these characters can also occur in the quality string). Multi-line FASTQ files (and consequently multi-line FASTQ parsers) are less common now that the majority of sequencing carried out is short-read Illumina sequencing, with typical sequence lengths of around 100bp. 
+
+:::
+
+Technically speaking, FASTQ files are not a direct product of sequencers as <mark>many
 have their own intermediate representation of the reads (e.g. [BCL
 files](https://www.illumina.com/informatics/sequencing-data-analysis/sequence-file-formats.html) for
-Illumina sequencers) that need to be translated into FASTQ files (using a tool
+Illumina sequencers) that need to be translated into FASTQ files</mark> (using a tool
 like [bcl2fastq](https://support.illumina.com/sequencing/sequencing_software/bcl2fastq-conversion-software.html)).
 In practice, many sequencing cores do this translation step before sending the
 data to the computational engineers downstream.
 
 ![Depiction of a symbolic pair of FASTQ files followed by a single FASTQ file example](../images/4.2-FASTQ-Files.jpg)
 
-A FASTQ file may come as either a single file or an inseparable pair of files
-for single-end or paired-end sequencing respectively. A FASTQ file contains
+<mark>A FASTQ file may come as either a single file or an inseparable pair of files
+for single-end or paired-end sequencing respectively</mark>. A FASTQ file contains
 many reads, which, as noted before, are fragments of DNA/RNA read by the
 sequencer. Each read in the file has the following four-line structure separated
 by newlines.
@@ -31,14 +67,14 @@ by newlines.
 | 3               | A single + delimiter character, often referred to as the "plus line"                                                                          |
 | 4               | The associated quality scores, one per nucleotide coordinating with line 2; generally an ASCII encoded probability score of incorrectness     |
 
-Random access within FASTQ files is not typical—generally, FASTQs are used
+Random access within FASTQ files is not typical—<mark>generally, FASTQs are used
 solely as input to some alignment process, which then produces a BAM file—so
-they are gzipped (not bgzipped) to save space. Conventionally, FASTQ file names
+they are gzipped (not bgzipped) to save space</mark>. Conventionally, FASTQ file names
 indicate which read the files contains (e.g. Sample.fastq.gz for single-end
 sequencing or Sample_R1.fastq.gz and Sample_R2.fastq.gz in paired-end sequencing
 where _R1 stands for "read one(s)" and _R2 stands for "read two(s)").
 
-Note that in the case of paired-end sequencing, it is crucial that each of the FASTQ files list their reads in same order. If even one read is deleted from either file, the entire read pairing will be off, which will have disastrous results during the alignment phase. To catch common formatting errors in single-end or paired-end FASTQ files, consider using [fqlib](https://github.com/stjude/fqlib) (specifically, the lint subcommand).
+<mark>Note that in the case of paired-end sequencing, it is crucial that each of the FASTQ files list their reads in same order</mark>. If even one read is deleted from either file, the entire read pairing will be off, which will have disastrous results during the alignment phase. To catch common formatting errors in single-end or paired-end FASTQ files, consider using [fqlib](https://github.com/stjude/fqlib) (specifically, the lint subcommand).
 
 Below is an example of the first four lines of a pair of FASTQ files generated by fq generate and validated by fq lint.
 

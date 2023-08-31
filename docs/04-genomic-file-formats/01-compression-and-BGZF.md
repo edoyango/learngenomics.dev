@@ -17,6 +17,9 @@ past all of the irrelevant BGZF blocks (avoiding the associated computational
 overhead) and only decompressing the block that contains the information you
 want.
 
+*EY Notes: It probably needs clarification that BAM files are SAM files with
+BGZF compression. And BGZF is just GZ compression, but using blocks.*
+
 Consider a single, bgzipped BAM file with the name `Sample.bam`. This file will
 typically be accompanied by an index called `Sample.bam.bai`, which contains
 offsets to the BGZF blocks. These two files are often treated as an inseperable

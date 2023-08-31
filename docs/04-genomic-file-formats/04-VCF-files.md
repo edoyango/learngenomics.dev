@@ -1,6 +1,6 @@
 # VCF Files
 
-The **Variant Call Format** (or VCF) is the most common format for storing variants detected in next-generation sequencing data. Typically, these files will be bgzipped and indexed. Each VCF file contains a header (typically used for storing metadata) and a list of variants. Minimally, each variant contains information about the where the variant lives in the genome and a definition of the change caused by the variant. It also supports storing information about the cohort samples and which samples contain which variants (effectively a [num_variants] X [num_samples] matrix with information on every sample, variant pair.)
+The **Variant Call Format** (or VCF) is the most common format for storing variants detected in next-generation sequencing data. Typically, these files will be bgzipped and indexed. <mark>Each VCF file contains a header (typically used for storing metadata) and a list of variants. Minimally, each variant contains information about the where the variant lives in the genome and a definition of the change caused by the variant.</mark> It also supports storing information about the cohort samples and which samples contain which variants (effectively a [num_variants] X [num_samples] matrix with information on every sample, variant pair.)
 
 Concretely, the minimal VCF looks like this.
 
@@ -11,13 +11,13 @@ Concretely, the minimal VCF looks like this.
 
 These fields describe:
 
-- **Variant Location.** Typically, the chromosome, position, reference base(s), and alternative base(s) fields are used to create an "address" of the variant in the genome using the form chrom-pos-ref-alt.
+- **Variant Location.** Typically, the chromosome, position, reference base(s), and alternative base(s) fields are used to create an <mark>"address" of the variant in the genome using the form chrom-pos-ref-alt.</mark>
 
-- **Variant Identifier.** The ID field is used to store one or more unique identifiers for the variant. Commonly, the rs numbers from [dbSNP](https://www.ncbi.nlm.nih.gov/snp/) are used.
+- **Variant Identifier.** The ID field is used to store one or more <mark>unique identifiers for the variant</mark>. Commonly, the rs numbers from [dbSNP](https://www.ncbi.nlm.nih.gov/snp/) are used.
 
-- **Quality of the Variant.** A measure of confidence in the called variant or lack thereof. This field follows the common practice of encoding qualities as a Phred-scaled quality score with the formula . A score of 10 means there is a 1 in 10 chance of the call being incorrect, 20 means a 1 in 100 chance of the call being incorrect, and so on. If unknown, the value should be the missing value, a period.
+- **Quality of the Variant.** A measure of confidence in the called variant or lack thereof. This field follows the common practice of encoding qualities as a <mark>Phred-scaled quality score with the formula</mark> . A score of 10 means there is a 1 in 10 chance of the call being incorrect, 20 means a 1 in 100 chance of the call being incorrect, and so on. <mark>If unknown, the value should be the missing value, a period.</mark>
 
-- **Filter Status.** This denotes the status of whether the variant passed all quality filters from the caller. If the variant passes, the value will have a value of PASS. If the variant fails any filters, the value will be a semi-colon separated list of codes for the filters. If unknown, the value should be the missing value.
+- **Filter Status.** This denotes the status of <mark>whether the variant passed all quality filters from the caller</mark>. If the variant passes, the value will have a value of PASS. If the variant fails any filters, the value will be a semi-colon separated list of codes for the filters. If unknown, the value should be the missing value.
 
 - **Additional Information.** A field which can contain an arbitrary number of key-value pairs separated by semicolons of the form /<key/>=/<value1/>[,/<value2/>]. While there are some reserved keys specified in the documentation, anything can be denoted here. If there is no additional information, this field is empty.
 

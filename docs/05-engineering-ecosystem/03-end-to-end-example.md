@@ -26,10 +26,8 @@ instructions](https://docs.anaconda.com/anaconda/install/) and
 bootstrap your environment by running the following commands:
 
 ```bash{numberLines: 1}
-conda create -n worked-example -c bioconda bcftools==1.9 bwa==0.7.17 fastqc==0.11.8 samtools==1.9 picard==2.21.2 -y
+conda create -n worked-example -c bioconda bcftools==1.9 bwa==0.7.17 fastqc==0.11.8 samtools==1.9 picard==2.21.2 fq -y
 conda activate worked-example
-
-cargo install --git https://github.com/stjude/fqlib.git
 ```
 
 ## Acquire sequencing data
@@ -86,6 +84,17 @@ wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/405/GCA_000001405.15_GRC
 gunzip GRCh38_no_alt.fa.gz
 ```
 
+:::info
+EY Notes: From the README:
+```
+The no_alt_analysis_set contains the sequences, in FASTA format, of 
+the chromosomes, mitochondrial genome, unlocalized scaffolds, and 
+unplaced scaffolds. The alternate locus scaffolds are omitted because
+many Next Generation Sequence read alignment pipelines are 
+incompatible with the full assembly model.
+```
+:::
+
 ## Index the reference genome
 
 Once you've downloaded the reference FASTA, you'll need to create the data
@@ -115,6 +124,11 @@ bwa index GRCh38_no_alt.fa
 # [main] CMD: bwa index GRCh38_no_alt.fa
 # [main] Real time: 2597.464 sec; CPU: 2586.355 sec
 ```
+
+:::info
+EY Notes: this command performs the Burrows Wheeler Transform on the reference
+genome once, which can be used bwa alignment.
+:::
 
 ## Aligning reads
 
@@ -162,6 +176,14 @@ Once alignment has finished, you will want to do the following steps:
 samtools sort SRR038564.bwa-mem.sam > SRR038564.bwa-mem.sorted.bam
 # [bam_sort_core] merging from 10 files and 1 in-memory blocks...
 ```
+
+:::info
+EY Notes: `bwa mem` has aligned the reads to the reference genome, but the 
+resulting alignments can be scattered throughout the genome depending on the 
+origin of the sequencing reads. Sorting these alignments makes downstream 
+analyses more efficient and helps ensure that tools which expect sorted 
+input (such as many variant callers) function correctly.
+:::
 
 ### Mark duplicates
 
@@ -222,11 +244,24 @@ picard MarkDuplicates I=SRR038564.bwa-mem.sorted.bam O=SRR038564.bwa-mem.sorted.
 # Runtime.totalMemory()=1073217536
 ```
 
+:::info
+EY Notes: The primary function of MarkDuplicates is to identify and mark 
+duplicate reads. In the context of sequencing, duplicates often arise from 
+PCR amplification during library preparation. Identifying these duplicates is 
+crucial because their presence can bias variant calling and other downstream 
+analyses.
+:::
+
 ### Index the BAM file
 
 ```bash
 samtools index SRR038564.bwa-mem.sorted.marked.bam
 ```
+
+:::info
+EY Notes: `samtools index` creates an index for efficient access. See the 
+[Compression page](../04-genomic-file-formats/01-compression-and-BGZF.md) page.
+:::
 
 ### Sanity Flagstat Check
 
@@ -247,12 +282,31 @@ samtools flagstat SRR038564.bwa-mem.sorted.marked.bam
 # 440386 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
 
+:::info
+EY Notes: The flagstat command provides a quick summary and overview of the 
+statistics for a given BAM or SAM file. Specifically, it provides counts for 
+various types of reads in the file based on their SAM flags. This information 
+can be valuable in assessing the quality and content of the sequencing data.
+:::
+
 ## Piling up variants
 
 ```bash
 # You can split these commands up, but the output of the first command is several hundred GB.
 bcftools mpileup -Ou SRR038564.bwa-mem.sorted.marked.bam -f GRCh38_no_alt.fa --threads `nproc` | bcftools call -mv > SRR038564.called.vcf
 ```
+
+:::info
+EY Notes: `bcftools mpileup` generates a pileup of bases from BAM or CRAM
+alignment files. A pileup is a data structure that represents the aligned 
+equences at every position of a reference sequence. It essentially provides a 
+summary of the depth and base distribution at each genomic position.
+
+`bcftools call` performs the actual variant calling, analyzing the pileup data 
+to identify SNPs, indels, and other types of variants. It uses various models 
+and heuristics to determine if a position in the genome has a variant or if 
+the observed differences from the reference are likely due to sequencing errors.
+:::
 
 ## Number of variants
 
